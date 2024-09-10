@@ -1,5 +1,5 @@
-import React, {  } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link,  useNavigate } from "react-router-dom";
 import logo from "../Assets/meal-treaker-logo.png";
 import * as Yup from "yup"
 import { useLoginMutation } from "../Service/FatchApi";
@@ -11,7 +11,12 @@ function Login() {
   const [login] = useLoginMutation();
   const navigate = useNavigate();
 
- 
+ useEffect(()=>{
+  const token = localStorage.getItem("auth")
+  if (token) {
+    navigate("/user",{replace:true})
+  }
+ },[navigate])
 
 
   const formik = useFormik({
@@ -32,7 +37,7 @@ onSubmit: async (values, { setSubmitting, setErrors }) => {
     if (status === "OK") {
       toast.success(message)
       localStorage.setItem("auth", data.token)
-      navigate("/user")
+      navigate("/user",{replace:true})
     } else {
       // Invalid login details
       toast.error(message);
