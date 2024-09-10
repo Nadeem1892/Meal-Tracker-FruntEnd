@@ -17,13 +17,12 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
     // login End point
       register:builder.mutation({
-        query: ({name,email,age,weight,height,password,confirmPassword}) => ({
+        query: (body) => ({
             url:"user/registerUser",
-            maethod:"POST",
-            body:{name,email,age,weight,height,password,confirmPassword}
+            method:"POST",
+            body:body
      })
     }),
     })
  })
-
- export const {useLoginMutation} = authApi
+ export const {useLoginMutation,useRegisterMutation} = authApi

@@ -44,6 +44,7 @@ onSubmit: async (values, { setSubmitting, setErrors }) => {
     }
    
   } catch (error) {
+    setSubmitting(false);
     if (error.user) {
       // Server responded with a status other than 200 range
       setErrors({ api: error.message });

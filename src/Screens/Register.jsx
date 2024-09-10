@@ -1,28 +1,72 @@
 import React from "react";
 import logo from "../Assets/meal-treaker-logo.png";
-import { Link } from "react-router-dom";
-// import { useFormik } from "formik";
-// import * as Yup from "yup"
+import { Link, useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup"
+import { toast } from "react-toastify";
+import { useRegisterMutation } from "../Service/FatchApi";
 
 const Register = () => {
+const [register] = useRegisterMutation()
 
-  // const formik = useFormik({
-  //   initialValues:{
-  //     userName:"",
-  //     email:"",
-  //     age:"",
-  //     weight:"",
-  //     height:"",
-  //     password:"",
-  //     confirmPassword:""
-  //   },
-  //   validationSchema: Yup.object({
-  //     userName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
-  //     email: Yup.string().email("Invalid email address").required("Required"),
-  //     password: Yup.string().min(4, "Password must be at least 4 characters").required("Required"),
-  //     confirmPassword: Yup.string().min(4, "Password must be at least 4 characters").required("Required"),
-  //   })
-  // })
+  const navigate = useNavigate();
+
+  const formik = useFormik({
+    initialValues:{
+      name:"",
+      email:"",
+      age:"",
+      weight: "",
+      height:"",
+      password:"",
+      confirmPassword:""
+    },
+    validationSchema: Yup.object({
+      name : Yup.string()
+      .required('Username is required')
+      .min(3, 'Username must be at least 3 characters'),
+    email: Yup.string()
+      .email('Invalid email format')
+      .required('Email is required'),
+    age: Yup.number()
+      .typeError('Age must be a number')
+      .positive('Age must be a positive number')
+      .integer('Age must be an integer')
+      .required('Age is required'),
+    weight: Yup.string()
+      .required('Weight is required'),
+    height: Yup.string()
+      .required('Height is required'),
+    password: Yup.string()
+      .required('Password is required')
+      .min(4, 'Password must be at least 4 characters long'),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password'), null], 'Passwords must match')
+      .required('Please confirm your password')
+    }),
+    onSubmit: async (values, { setSubmitting, setErrors }) => {
+     
+      try {
+        const user = await register(values).unwrap();
+        console.log(user)
+        const { status, message, data } = user;
+        if (status === "OK") {
+          toast.success(message);
+          localStorage.setItem("auth", data.token);
+          navigate("/user", { replace: true });
+        } else {
+          toast.error(message);
+        }
+      } catch (error) {
+        setSubmitting(false);
+        if (error.user) {
+          setErrors({ api: error.message });
+        } else {
+          setErrors({ api: "An error occurred. Please try again." });
+        }
+      }
+    }
+  })
 
   return (
 
@@ -40,10 +84,15 @@ const Register = () => {
 
         <form
           className="flex flex-col w-full gap-2 mt-5 space-y-2"
-          action="#"
-          method="POST"
+          onSubmit={formik.handleSubmit}
         >
-          {/* username Input */}
+          {formik.errors.api && (
+            <div className="text-red-600">{formik.errors.api}</div>
+          )}
+           {/* other Input */}
+           <div className="flex gap-1">
+
+            {/* username Input */}
           <div>
             <label
               htmlFor="userName"
@@ -52,18 +101,21 @@ const Register = () => {
               User Name
             </label>
             <input
-              id="userName"
-              name="userName"
+              id="name"
+              name="name"
               type="text"
-              required
-              class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
-                    focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.userName}
+              className="block w-full px-3 py-2 mt-1 text-sm bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
               placeholder="Enter your username"
             />
+            {formik.touched.email && formik.errors.userName ? (
+              <div className="text-sm text-red-600">{formik.errors.userName}</div>
+            ) : null}
           </div>
-
-          {/* Email Input */}
-          <div>
+              {/* Email Input */}
+            <div>
             <label
               htmlFor="email"
               className="block text-sm font-medium text-gray-700"
@@ -74,11 +126,17 @@ const Register = () => {
               id="email"
               name="email"
               type="email"
-              required
-              class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
-                    focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.email}
+              className="block w-full px-3 py-2 mt-1 text-sm bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
               placeholder="Enter your email"
             />
+            {formik.touched.email && formik.errors.email ? (
+              <div className="text-sm text-red-600">{formik.errors.email}</div>
+            ) : null}
+          </div>
+
           </div>
 
           {/* other Input */}
@@ -95,11 +153,15 @@ const Register = () => {
                 id="age"
                 name="age"
                 type="number"
-                required
-                class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
-                    focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.age}
+                className="block w-full px-3 py-2 mt-1 text-sm bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
                 placeholder="Enter your Age"
               />
+              {formik.touched.email && formik.errors.email ? (
+              <div className="text-sm text-red-600">{formik.errors.age}</div>
+            ) : null}
             </div>
 
              {/* Weight Input */}
@@ -114,11 +176,15 @@ const Register = () => {
                 id="weight"
                 name="weight"
                 type="text"
-                required
-                class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
-                    focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.weight}
+                className="block w-full px-3 py-2 mt-1 text-sm bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
                 placeholder="Enter your Weight"
               />
+              {formik.touched.email && formik.errors.email ? (
+              <div className="text-sm text-red-600">{formik.errors.weight}</div>
+            ) : null}
             </div>
           </div>
 
@@ -136,30 +202,38 @@ const Register = () => {
                 id="password"
                 name="password"
                 type="password"
-                required
-                class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
-                    focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.password}
+                className="block w-full px-3 py-2 mt-1 text-sm bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
                 placeholder="Enter your password"
               />
+              {formik.touched.email && formik.errors.email ? (
+              <div className="text-sm text-red-600">{formik.errors.password}</div>
+            ) : null}
             </div>
 
             {/* Confirm Password Input */}
             <div>
               <label
-                htmlFor="password"
+                htmlFor="confirmPassword"
                 className="block text-sm font-medium text-gray-700"
               >
-                Password
+               Confirm Password
               </label>
               <input
-                id="password"
-                name="password"
+                id="confirmPassword"
+                name="confirmPassword"
                 type="password"
-                required
-                class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
-                    focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.confirmPassword}
+                className="block w-full px-3 py-2 mt-1 text-sm bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
                 placeholder="Enter your password"
               />
+              {formik.touched.email && formik.errors.email ? (
+              <div className="text-sm text-red-600">{formik.errors.confirmPassword}</div>
+            ) : null}
             </div>
           </div>
 
@@ -175,23 +249,27 @@ const Register = () => {
               id="height"
               name="height"
               type="height"
-              required
-              class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
-                    focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.height}
+              className="block w-full px-3 py-2 mt-1 text-sm bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
               placeholder="Enter your Height"
             />
+            {formik.touched.email && formik.errors.email ? (
+              <div className="text-sm text-red-600">{formik.errors.height}</div>
+            ) : null}
           </div>
 
           {/* Submit Button */}
           <div>
-            <Link
-              to={"register"}
-              type="submit"
+            <button
+               type="submit"
               className="block w-full px-3 py-2 mt-1 text-center text-white border rounded-md shadow-sm text-md bg-sky-500 hover:bg-sky-700"
             >
               Sign Up
-            </Link>
+            </button>
           </div>
+          
         </form>
 
         {/* Register Link */}
