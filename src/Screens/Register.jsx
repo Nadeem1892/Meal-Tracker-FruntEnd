@@ -1,17 +1,39 @@
 import React from "react";
 import logo from "../Assets/meal-treaker-logo.png";
 import { Link } from "react-router-dom";
+// import { useFormik } from "formik";
+// import * as Yup from "yup"
 
 const Register = () => {
+
+  // const formik = useFormik({
+  //   initialValues:{
+  //     userName:"",
+  //     email:"",
+  //     age:"",
+  //     weight:"",
+  //     height:"",
+  //     password:"",
+  //     confirmPassword:""
+  //   },
+  //   validationSchema: Yup.object({
+  //     userName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
+  //     email: Yup.string().email("Invalid email address").required("Required"),
+  //     password: Yup.string().min(4, "Password must be at least 4 characters").required("Required"),
+  //     confirmPassword: Yup.string().min(4, "Password must be at least 4 characters").required("Required"),
+  //   })
+  // })
+
   return (
+
     <div className="flex items-center justify-center bg-gray-100 h-[90vh] lg:h-screen">
-      <div className="flex flex-col items-center w-full h-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg lg:h-fit">
+      <div className="flex flex-col items-center w-full h-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg ">
         <div className="mt-1 mb-1 lg:mt-0 lg:mb-0 text-[30px] flex items-center gap-2 font-semibold font-manrope  leading-snug text-transparent bg-clip-text bg-gradient-to-r from-[#14b8a6] via-[#ea580c] to-[#dc2626]">
           Meal Tracker
           <img src={logo} alt="" className="w-12 h-12 " />
         </div>
         <div className="flex flex-col items-center">
-          <h2 className="text-2xl font-bold text-gray-800">
+          <h2 className="text-xl font-bold text-gray-800">
             Create an Account
           </h2>
         </div>
@@ -24,15 +46,15 @@ const Register = () => {
           {/* username Input */}
           <div>
             <label
-              htmlFor="email"
+              htmlFor="userName"
               className="block text-sm font-medium text-gray-700"
             >
               User Name
             </label>
             <input
-              id="name"
-              name="name"
-              type="name"
+              id="userName"
+              name="userName"
+              type="text"
               required
               class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
                     focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"

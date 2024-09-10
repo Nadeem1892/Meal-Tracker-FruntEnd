@@ -84,6 +84,9 @@ function Header() {
     };
   }, [isNavbarOpen]);
 
+
+  
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-gray-900 border-gray-200">
       <div className="flex flex-wrap items-center justify-between p-3 mx-auto lg:p-0 lg:px-10">

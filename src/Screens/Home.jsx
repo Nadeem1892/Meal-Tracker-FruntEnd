@@ -189,44 +189,44 @@ function Home() {
         <div className="flex flex-col justify-center w-full gap-4 px-5 bg-gray-800 h-72 rounded-xl">
           {/* progress bar */}
 
-          <div class="flex justify-between">
-            <span class="text-base font-medium text-white">Protein</span>
-            <span class="text-sm font-medium text-white">80%</span>
+          <div className="flex justify-between">
+            <span className="text-base font-medium text-white">Protein</span>
+            <span className="text-sm font-medium text-white">80%</span>
           </div>
-          <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+          <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
             <div
               className="bg-green-400 h-2.5 rounded-full"
               style={{ width: "80%" }}
             ></div>
           </div>
 
-          <div class="flex justify-between">
-            <span class="text-base font-medium text-white">Fat</span>
-            <span class="text-sm font-medium text-white">30%</span>
+          <div className="flex justify-between">
+            <span className="text-base font-medium text-white">Fat</span>
+            <span className="text-sm font-medium text-white">30%</span>
           </div>
-          <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+          <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
             <div
               className="bg-red-400 h-2.5 rounded-full"
               style={{ width: "30%" }}
             ></div>
           </div>
 
-          <div class="flex justify-between">
-            <span class="text-base font-medium text-white">Carbs</span>
-            <span class="text-sm font-medium text-white">60%</span>
+          <div className="flex justify-between">
+            <span className="text-base font-medium text-white">Carbs</span>
+            <span className="text-sm font-medium text-white">60%</span>
           </div>
-          <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+          <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
             <div
               className="bg-sky-400 h-2.5 rounded-full"
               style={{ width: "60%" }}
             ></div>
           </div>
 
-          <div class="flex justify-between">
-            <span class="text-base font-medium text-white">Calories</span>
-            <span class="text-sm font-medium text-white">20%</span>
+          <div className="flex justify-between">
+            <span className="text-base font-medium text-white">Calories</span>
+            <span className="text-sm font-medium text-white">20%</span>
           </div>
-          <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+          <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
             <div
               className="bg-orange-400 h-2.5 rounded-full"
               style={{ width: "20%" }}
