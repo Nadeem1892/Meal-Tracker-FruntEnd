@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 function Login() {
 
-  const [login] = useLoginMutation();
+  const [login,{isLoading}] = useLoginMutation();
   const navigate = useNavigate();
 
  useEffect(()=>{
@@ -92,11 +92,13 @@ onSubmit: async (values, { setSubmitting, setErrors }) => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.email}
-              className="block w-full px-3 py-2 mt-1 text-sm bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+              className={`block w-full px-3 py-2 mt-1 text-sm bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 ${
+                formik.touched.email && formik.errors.email ? 'border-red-500' : ''
+              }`}
               placeholder="Enter your email"
             />
             {formik.touched.email && formik.errors.email ? (
-              <div className="text-sm text-red-600">{formik.errors.email}</div>
+              <div className="absolute text-sm text-red-600">{formik.errors.email}</div>
             ) : null}
 
           </div>
@@ -116,11 +118,13 @@ onSubmit: async (values, { setSubmitting, setErrors }) => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.password}
-              className="block w-full px-3 py-2 mt-1 text-sm bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+              className={`block w-full px-3 py-2 mt-1 text-sm bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 ${
+                formik.touched.password && formik.errors.password ? 'border-red-500' : ''
+              }`}
               placeholder="Enter your password"
             />
              {formik.touched.password && formik.errors.password ? (
-              <div className="text-sm text-red-600">{formik.errors.password}</div>
+              <div className="absolute text-sm text-red-600">{formik.errors.password}</div>
             ) : null}
 
           </div>
@@ -156,9 +160,10 @@ onSubmit: async (values, { setSubmitting, setErrors }) => {
           <div>
             <button
               type="submit"
+              disabled={isLoading?true:false}
               className="block w-full px-3 py-2 mt-1 text-center text-white border rounded-md shadow-sm text-md bg-sky-500 hover:bg-sky-700"
             >
-              Login
+              {isLoading?"Login...":"Login"}
             </button>
           </div>
         </form>
