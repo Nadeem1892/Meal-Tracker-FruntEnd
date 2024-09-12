@@ -2,7 +2,16 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
  export const authApi = createApi({
     reducerPath:"authApi",
-    baseQuery: fetchBaseQuery({baseUrl: "http://localhost:3000/"}),
+    baseQuery: fetchBaseQuery({
+        baseUrl: "http://localhost:3000/",
+        prepareHeaders: (headers) => {
+        const token = localStorage.getItem("auth");
+        if (token) {
+            headers.set("x-access-token", token);
+          }
+          return headers;
+        }
+    }),
     tagTypes: ["users"],
     endpoints: (builder) => ({
 
@@ -14,7 +23,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
         body: { email, password },
     })
     }),
-    
+
     // login End point
       register:builder.mutation({
         query: (body) => ({
@@ -23,6 +32,15 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
             body:body
      })
     }),
+
+    // Add Meals
+    addMael:builder.mutation({
+        query: (mealDate) => ({
+        url:"meal/add-meal",
+        method:"POST",
+        body:mealDate
+        })
+    })
     })
  })
- export const {useLoginMutation,useRegisterMutation} = authApi
+ export const {useLoginMutation,useRegisterMutation,useAddMaelMutation} = authApi

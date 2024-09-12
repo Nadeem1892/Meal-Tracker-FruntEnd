@@ -4,7 +4,6 @@ import { RiMenu3Fill } from "react-icons/ri";
 import { IoShieldCheckmark } from "react-icons/io5";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
-
 import { jwtDecode } from "jwt-decode";
 
 import mealTreackerLogo from "../Assets/meal-treaker-logo.png";
@@ -25,7 +24,6 @@ function Header() {
       setActiveDropdown(dropdown); // Open the clicked dropdown
     }
   };
-
 
   // Toggle user menu
   const toggleUserMenu = () => {
@@ -84,14 +82,12 @@ function Header() {
     };
   }, [isNavbarOpen]);
 
-const token = localStorage.getItem("auth")  
-const decodedToken = jwtDecode(token);
+  const token = localStorage.getItem("auth");
+  const decodedToken = jwtDecode(token);
 
-const logOut = () => {
-  localStorage.clear("auth")
-}
-
-
+  const logOut = () => {
+    localStorage.clear("auth");
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-gray-900 border-gray-200">
@@ -151,27 +147,28 @@ const logOut = () => {
               }`}
             >
               <div className="px-4 py-3">
-                <span className="block text-sm text-gray-900 dark:text-white">
-                  View Profile
+                <span className="flex items-center gap-2 text-sm text-gray-900 dark:text-white">
+                  {decodedToken.username}
+                  <IoShieldCheckmark className="text-green-500 text-[15px]" />
                 </span>
               </div>
               <ul className="py-2">
-                <li>
+                <li className="">
                   <a
                     href="/#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    className="block px-4 py-2 text-sm text-center text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                   >
-                    Settings
+                    View Profile
                   </a>
                 </li>
 
-                <li className="">
-                  <a
-                    href="/"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                <li className="hidden lg:block">
+                  <button
+                    onClick={logOut}
+                    className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                   >
-                    Log out
-                  </a>
+                    Log Out
+                  </button>
                 </li>
               </ul>
             </div>
@@ -210,7 +207,6 @@ const logOut = () => {
 
               {/* list */}
               <ul className="flex flex-col gap-5 py-10 font-medium lg:items-center lg:py-0 md:space-x-7 rtl:space-x-reverse md:flex-row ">
-                
                 <li onClick={() => setNavbarOpen(false)}>
                   <Link
                     to={"/user"}
@@ -227,33 +223,33 @@ const logOut = () => {
                     className="flex items-center justify-between w-full gap-2 px-3 py-2 text-white md:bg-transparent"
                   >
                     <span>Meals</span>
-                    {activeDropdown === "meals"? (
-                      <IoMdArrowDropup  className="font-bold text-[20px] text-red-500" />
+                    {activeDropdown === "meals" ? (
+                      <IoMdArrowDropup className="font-bold text-[20px] text-red-500" />
                     ) : (
                       <IoMdArrowDropdown className="font-bold text-[20px] text-white" />
                     )}
                   </button>
-  
+
                   {activeDropdown === "meals" && (
                     <ul className="top-0 w-full py-2 mt-2 text-sm text-gray-700 bg-white divide-gray-100 rounded-lg shadow lg:absolute lg:top-[75px] lg:mt-0 lg:w-32 dark:bg-gray-700 dark:text-gray-200">
                       <li onClick={() => setNavbarOpen(false)}>
-                          <Link
+                        <Link
                           onClick={() => setActiveDropdown(null)}
-                            to={"meal-history"}
-                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                          >
-                            Meal History
-                          </Link>
-                        </li>
-                        <li onClick={() => setNavbarOpen(false)}>
-                          <Link
+                          to={"meal-history"}
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >
+                          Meal History
+                        </Link>
+                      </li>
+                      <li onClick={() => setNavbarOpen(false)}>
+                        <Link
                           onClick={() => setActiveDropdown(null)}
-                            to={"add-meal"}
-                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                          >
-                            Add Meal
-                          </Link>
-                        </li>
+                          to={"add-meal"}
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >
+                          Add Meal
+                        </Link>
+                      </li>
                     </ul>
                   )}
                 </li>
@@ -265,37 +261,36 @@ const logOut = () => {
                     className="flex items-center justify-between w-full gap-2 px-3 py-2 text-white md:bg-transparent"
                   >
                     <span>Plans</span>
-                    {activeDropdown === "mealPlans"? (
-                      <IoMdArrowDropup  className="font-bold text-[20px] text-red-500" />
+                    {activeDropdown === "mealPlans" ? (
+                      <IoMdArrowDropup className="font-bold text-[20px] text-red-500" />
                     ) : (
                       <IoMdArrowDropdown className="font-bold text-[20px] text-white" />
                     )}
                   </button>
-  
+
                   {activeDropdown === "mealPlans" && (
                     <ul className="top-0 w-full py-2 mt-2 text-sm text-gray-700 bg-white divide-gray-100 rounded-lg shadow lg:absolute lg:top-[75px] lg:mt-0 lg:w-32 dark:bg-gray-700 dark:text-gray-200">
                       <li onClick={() => setNavbarOpen(false)}>
-                          <Link
-                            to={"view-plans"}
-                            onClick={() => setActiveDropdown(null)}
-                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                          >
-                            View Plan
-                          </Link>
-                        </li>
-                        <li onClick={() => setNavbarOpen(false)}>
-                          <Link
+                        <Link
+                          to={"view-plans"}
                           onClick={() => setActiveDropdown(null)}
-                            to={"add-plan"}
-                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                          >
-                            Add Plan
-                          </Link>
-                        </li>
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >
+                          View Plan
+                        </Link>
+                      </li>
+                      <li onClick={() => setNavbarOpen(false)}>
+                        <Link
+                          onClick={() => setActiveDropdown(null)}
+                          to={"add-plan"}
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >
+                          Add Plan
+                        </Link>
+                      </li>
                     </ul>
                   )}
                 </li>
-
 
                 {/* Challenges Dropdown */}
                 <li className="">
@@ -304,8 +299,8 @@ const logOut = () => {
                     className="flex items-center justify-between w-full gap-2 px-3 py-2 text-white md:bg-transparent"
                   >
                     <span>Challenges</span>
-                    {activeDropdown === "challenges"? (
-                      <IoMdArrowDropup  className="font-bold text-[20px] text-red-500" />
+                    {activeDropdown === "challenges" ? (
+                      <IoMdArrowDropup className="font-bold text-[20px] text-red-500" />
                     ) : (
                       <IoMdArrowDropdown className="font-bold text-[20px] text-white" />
                     )}
@@ -314,9 +309,9 @@ const logOut = () => {
                   {activeDropdown === "challenges" && (
                     <ul className="top-0 w-full py-2 mt-2 text-sm text-gray-700 bg-white divide-gray-100 rounded-lg shadow lg:absolute lg:top-[75px] lg:mt-0 lg:w-[130px] dark:bg-gray-700 dark:text-gray-200">
                       <li onClick={() => setNavbarOpen(false)}>
-
-                        <Link to={"view-challenges"}
-                        onClick={() => setActiveDropdown(null)}
+                        <Link
+                          to={"view-challenges"}
+                          onClick={() => setActiveDropdown(null)}
                           className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         >
                           View Challenge
@@ -327,7 +322,7 @@ const logOut = () => {
 
                         {/*  */}
                         <Link
-                        onClick={() => setActiveDropdown(null)}
+                          onClick={() => setActiveDropdown(null)}
                           to={"add-challenge"}
                           className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         >
@@ -337,11 +332,13 @@ const logOut = () => {
                     </ul>
                   )}
                 </li>
-                
               </ul>
             </nav>
             <div className="flex justify-center w-full lg:hidden">
-              <button onClick={logOut} className="w-full py-2 text-white bg-red-500 rounded-md">
+              <button
+                onClick={logOut}
+                className="w-full py-2 text-white bg-red-500 rounded-md"
+              >
                 Log Out
               </button>
             </div>
