@@ -66,7 +66,7 @@ onSubmit: async (values, { setSubmitting, setErrors }) => {
           <img src={logo} alt="" className="w-12 h-12 " />
         </div>
         <div className="flex flex-col items-center">
-          <h2 className="text-2xl font-bold text-gray-800">Login</h2>
+          <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#14b8a6] via-[#ea580c] to-[#dc2626] ">Login</h2>
         </div>
 
         <form

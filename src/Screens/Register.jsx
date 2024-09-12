@@ -81,7 +81,7 @@ const [register] = useRegisterMutation()
       
       {/* Heading */}
       <div className="flex flex-col items-center">
-        <h2 className="text-xl font-bold text-gray-800">Create an Account</h2>
+        <h2 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#14b8a6] via-[#ea580c] to-[#dc2626]">Create an Account</h2>
       </div>
   
       {/* Form */}
@@ -262,7 +262,7 @@ const [register] = useRegisterMutation()
       {/* Register Link */}
       <p className="mt-4 text-sm text-center text-gray-600">
         Already have an account?
-        <Link to={"register"} className="font-medium text-indigo-600 hover:text-indigo-500">
+        <Link to={"/"} className="font-medium text-indigo-600 hover:text-indigo-500">
           Sign in here
         </Link>
       </p>
