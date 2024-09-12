@@ -5,6 +5,8 @@ import { IoShieldCheckmark } from "react-icons/io5";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 
+import { jwtDecode } from "jwt-decode";
+
 import mealTreackerLogo from "../Assets/meal-treaker-logo.png";
 import { Link } from "react-router-dom";
 function Header() {
@@ -24,8 +26,6 @@ function Header() {
     }
   };
 
- 
- 
 
   // Toggle user menu
   const toggleUserMenu = () => {
@@ -84,8 +84,14 @@ function Header() {
     };
   }, [isNavbarOpen]);
 
+const token = localStorage.getItem("auth")  
+const decodedToken = jwtDecode(token);
 
-  
+const logOut = () => {
+  localStorage.clear("auth")
+}
+
+
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-gray-900 border-gray-200">
@@ -193,7 +199,7 @@ function Header() {
                       <div className="flex flex-col items-center w-full gap-2">
                         <FaRegCircleUser className="w-10 h-10 text-[#f6f6f8]" />
                         <h3 className="flex items-center gap-2 font-semibold text-white text-[20px]">
-                          Hi Deems{" "}
+                          {decodedToken.username}
                           <IoShieldCheckmark className="text-green-500 text-[15px]" />
                         </h3>
                       </div>
@@ -335,7 +341,7 @@ function Header() {
               </ul>
             </nav>
             <div className="flex justify-center w-full lg:hidden">
-              <button className="w-full py-2 text-white bg-red-500 rounded-md">
+              <button onClick={logOut} className="w-full py-2 text-white bg-red-500 rounded-md">
                 Log Out
               </button>
             </div>

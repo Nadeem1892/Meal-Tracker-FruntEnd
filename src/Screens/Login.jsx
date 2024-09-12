@@ -59,7 +59,7 @@ onSubmit: async (values, { setSubmitting, setErrors }) => {
 
 
   return (
-    <div className="flex items-center justify-center bg-gray-100 h-[90vh] lg:h-screen">
+    <div className="flex items-center justify-center bg-gray-100 h-[100vh] lg:h-screen">
       <div className="flex flex-col items-center w-full h-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg lg:h-fit">
         <div className="mt-10 mb-10 lg:mt-0 lg:mb-0 text-[30px] flex items-center gap-2 font-semibold font-manrope  leading-snug text-transparent bg-clip-text bg-gradient-to-r from-[#14b8a6] via-[#ea580c] to-[#dc2626]">
           Meal Tracker

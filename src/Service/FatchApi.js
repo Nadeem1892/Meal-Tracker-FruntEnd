@@ -14,7 +14,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
         body: { email, password },
     })
     }),
-
+    
     // login End point
       register:builder.mutation({
         query: (body) => ({
