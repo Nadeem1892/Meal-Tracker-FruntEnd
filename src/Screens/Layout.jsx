@@ -17,13 +17,13 @@ function Layout() {
   }, [navigate])
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-full bg-gray-200 lg:h-screen ">
       {/* Header */}
       <Header/>
         {/* Main Content */}
-        <main className="w-full h-screen bg-gray-200">
+        <main className="w-full h-full mt-20">
         
-         <div className='w-full h-full]'>
+         <div className='w-full h-full'>
          <Outlet /> {/* Render nested routes here */}
          </div>
         </main>

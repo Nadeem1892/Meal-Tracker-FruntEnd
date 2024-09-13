@@ -72,6 +72,7 @@ function AtmFilter({toggleDropdown, isDropdownOpen, setIsDropdownOpen}) {
         </ul>
       </div>
     )}
+    
   </div>
 
   )

@@ -7,6 +7,7 @@ import Register from "../Screens/Register";
 import Addmeal from "../Screens/Meals/Add/Addmeal";
 import Addplans from "../Screens/Plans/Add/Addplans";
 import AddChallenge from "../Screens/Challenges/Add/AddChallenge";
+import ListingChallanges from "../Screens/Challenges/List/ListingChallanges";
 
 
 
@@ -47,7 +48,7 @@ const router = createBrowserRouter([
           },
           {
             path: "view-challenges",
-            element:<div>View Challenges</div>
+            element:<ListingChallanges/>
           },
           {
             path: "add-challenge",

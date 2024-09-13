@@ -1,11 +1,33 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import AtmFilter from "../../../Atoms/AtmFilter";
-
+import { MdKeyboardArrowDown } from "react-icons/md";
+import { MdKeyboardArrowUp } from "react-icons/md";
+import CalendarComponent from "../../../Components/CalendarComponent ";
+import { useGetMealByDateMutation } from "../../../Service/FatchApi";
+import { format } from 'date-fns'; // Import the format function
 function MealsListing() {
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [value, setValue] = useState(new Date());
 
+  const [getMealByDate, { data}] = useGetMealByDateMutation();
 
+   console.log(data)
+ 
+  // Handle date change and fetch data
+  const handleDateChange = async (date) => {
+    setValue(date);
+    try {
+      await getMealByDate(formatDate(date)).unwrap();
+    } catch (error) {
+      
+    }
+
+  }
+      // Function to format the date to DD-MM-YYYY
+  const formatDate = (date) => {
+    return format(date, 'dd-MM-yyyy');
+  };
 
   // Toggle dropdown visibility
   const toggleDropdown = () => {
@@ -13,19 +35,29 @@ function MealsListing() {
   };
 
   return (
-    <section className="w-full mt-20 ">
+    <section className="w-full mt-20">
       <div className="w-full mx-auto lg:px-10">
         {/* <!-- Start coding here --> */}
-        <div className="flex flex-col items-center justify-center w-full bg-red-400 shadow-md lg:w-full sm:rounded-lg">
+        <div className="flex flex-col items-center justify-center w-full shadow-md lg:w-full sm:rounded-lg">
 
           <div className="flex flex-col justify-between px-4 md:flex-row ">
-            <div className="flex items-center justify-between w-full">
+            <div className="flex items-center justify-between w-full gap-4">
               {/* Filter */}
-              <AtmFilter
+              {/* <AtmFilter
                 toggleDropdown={toggleDropdown}
                 isDropdownOpen={isDropdownOpen}
                 setIsDropdownOpen={setIsDropdownOpen}
-              />
+              /> */}
+
+     <button
+      onClick={toggleDropdown}
+      className="text-white bg-sky-500 hover:bg-primary-800  font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+      >
+      	Select a Meal
+      {
+       isDropdownOpen?<MdKeyboardArrowUp className="text-[20px] text-white"/>:<MdKeyboardArrowDown className="text-[20px] text-white"/>
+      }
+    </button>
 
               {/* Add meal */}
               <Link
@@ -38,24 +70,18 @@ function MealsListing() {
           </div>
 
           {/* card */}
-          <div className="grid grid-cols-2 gap-3 p-5 lg:grid-cols-5">
-            <div class="max-w-60 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-              <a href="/#">
-                <img
-                  class="rounded-t-lg object-cover h-28 w-96"
-                  src="https://www.dinneratthezoo.com/wp-content/uploads/2020/12/grilled-chicken-salad-4.jpg"
-                  alt=""
-                />
-              </a>
-              <div class="p-5">
-                <div className="flex flex-col items-center justify-center gap-2">
-                  <h1 className="text-white">Oatmeal with Berries</h1>
-                  <button className="px-5 py-1 text-white rounded-lg bg-sky-500">View</button>
-                </div>
-              </div>
+          <div className="grid w-full h-full grid-cols-1 gap-3 p-5 lg:grid-cols-1">
+        {
+          isDropdownOpen && (
+            <div class="max-w-full absolute right-0 left-0">
+             <CalendarComponent formatDate={formatDate} handleDateChange={handleDateChange} onValue={value}/>
             </div>
+          )
+        }
+            
 
-            <div class="max-w-60 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+
               <a href="/#">
                 <img
                   class="rounded-t-lg object-cover h-28 w-96"
@@ -66,135 +92,8 @@ function MealsListing() {
               <div class="p-5">
                 <div className="flex flex-col items-center justify-center gap-2">
                   <h1 className="text-white">Oatmeal with Berries</h1>
-                  <button className="px-5 py-1 text-white rounded-lg bg-sky-500">View</button>
-                </div>
-              </div>
-            </div>
 
-            <div class="max-w-60 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-              <a href="/#">
-                <img
-                  class="rounded-t-lg object-cover h-28 w-96"
-                  src="https://www.dinneratthezoo.com/wp-content/uploads/2020/12/grilled-chicken-salad-4.jpg"
-                  alt=""
-                />
-              </a>
-              <div class="p-5">
-                <div className="flex flex-col items-center justify-center gap-2">
-                  <h1 className="text-white">Oatmeal with Berries</h1>
-                  <button className="px-5 py-1 text-white rounded-lg bg-sky-500">View</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="max-w-60 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-              <a href="/#">
-                <img
-                  class="rounded-t-lg object-cover h-28 w-96"
-                  src="https://www.dinneratthezoo.com/wp-content/uploads/2020/12/grilled-chicken-salad-4.jpg"
-                  alt=""
-                />
-              </a>
-              <div class="p-5">
-                <div className="flex flex-col items-center justify-center gap-2">
-                  <h1 className="text-white">Oatmeal with Berries</h1>
-                  <button className="px-5 py-1 text-white rounded-lg bg-sky-500">View</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="max-w-60 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-              <a href="/#">
-                <img
-                  class="rounded-t-lg object-cover h-28 w-96"
-                  src="https://www.dinneratthezoo.com/wp-content/uploads/2020/12/grilled-chicken-salad-4.jpg"
-                  alt=""
-                />
-              </a>
-              <div class="p-5">
-                <div className="flex flex-col items-center justify-center gap-2">
-                  <h1 className="text-white">Oatmeal with Berries</h1>
-                  <button className="px-5 py-1 text-white rounded-lg bg-sky-500">View</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="max-w-60 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-              <a href="/#">
-                <img
-                  class="rounded-t-lg object-cover h-28 w-96"
-                  src="https://www.dinneratthezoo.com/wp-content/uploads/2020/12/grilled-chicken-salad-4.jpg"
-                  alt=""
-                />
-              </a>
-              <div class="p-5">
-                <div className="flex flex-col items-center justify-center gap-2">
-                  <h1 className="text-white">Oatmeal with Berries</h1>
-                  <button className="px-5 py-1 text-white rounded-lg bg-sky-500">View</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="max-w-60 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-              <a href="/#">
-                <img
-                  class="rounded-t-lg object-cover h-28 w-96"
-                  src="https://www.dinneratthezoo.com/wp-content/uploads/2020/12/grilled-chicken-salad-4.jpg"
-                  alt=""
-                />
-              </a>
-              <div class="p-5">
-                <div className="flex flex-col items-center justify-center gap-2">
-                  <h1 className="text-white">Oatmeal with Berries</h1>
-                  <button className="px-5 py-1 text-white rounded-lg bg-sky-500">View</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="max-w-60 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-              <a href="/#">
-                <img
-                  class="rounded-t-lg object-cover h-28 w-96"
-                  src="https://www.dinneratthezoo.com/wp-content/uploads/2020/12/grilled-chicken-salad-4.jpg"
-                  alt=""
-                />
-              </a>
-              <div class="p-5">
-                <div className="flex flex-col items-center justify-center gap-2">
-                  <h1 className="text-white">Oatmeal with Berries</h1>
-                  <button className="px-5 py-1 text-white rounded-lg bg-sky-500">View</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="max-w-60 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-              <a href="/#">
-                <img
-                  class="rounded-t-lg object-cover h-28 w-96"
-                  src="https://www.dinneratthezoo.com/wp-content/uploads/2020/12/grilled-chicken-salad-4.jpg"
-                  alt=""
-                />
-              </a>
-              <div class="p-5">
-                <div className="flex flex-col items-center justify-center gap-2">
-                  <h1 className="text-white">Oatmeal with Berries</h1>
-                  <button className="px-5 py-1 text-white rounded-lg bg-sky-500">View</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="max-w-60 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-              <a href="/#">
-                <img
-                  class="rounded-t-lg object-cover h-28 w-96"
-                  src="https://www.dinneratthezoo.com/wp-content/uploads/2020/12/grilled-chicken-salad-4.jpg"
-                  alt=""
-                />
-              </a>
-              <div class="p-5">
-                <div className="flex flex-col items-center justify-center gap-2">
-                  <h1 className="text-white">Oatmeal with Berries</h1>
-                  <button className="px-5 py-1 text-white rounded-lg bg-sky-500">View</button>
+                  
                 </div>
               </div>
             </div>
