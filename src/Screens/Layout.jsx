@@ -21,9 +21,9 @@ function Layout() {
       {/* Header */}
       <Header/>
         {/* Main Content */}
-        <main className="w-full ">
+        <main className="w-full h-screen bg-gray-200">
         
-         <div className='w-full mt-16 lg:mt-[75px]'>
+         <div className='w-full h-full]'>
          <Outlet /> {/* Render nested routes here */}
          </div>
         </main>

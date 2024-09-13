@@ -41,7 +41,7 @@ function Addmeal() {
       try {
         const addMealDate = await addMeal(values).unwrap();
         const { status, message } = addMealDate;
-        console.log(addMealDate);
+       
         if (status === "OK") {
           toast.success(message);
 
