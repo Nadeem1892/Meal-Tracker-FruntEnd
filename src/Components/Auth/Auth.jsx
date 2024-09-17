@@ -1,20 +1,25 @@
 import React, { useEffect } from 'react'
+import {  useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const Auth = ({children}) => {
     const navigate = useNavigate();
-    useEffect(()=>{
-      const interval = setInterval(() => {
-        const token = localStorage.getItem("auth");
 
-        if (!token) {
-          navigate("/");
-        }else{
+   
+    const {token} = useSelector((state) => state.auth);
+   
+    console.log(token)
+    
+    useEffect(()=>{
+      
+        if (token) {
             navigate("/user")
+        }else{
+            
+            navigate("/");
         }
-      }, 10);
-      return () =>clearInterval(interval)
-    }, [navigate])
+     
+    }, [token])
   return (
     <div>
        {children} 

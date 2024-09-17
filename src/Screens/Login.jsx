@@ -5,12 +5,14 @@ import * as Yup from "yup"
 import { useLoginMutation } from "../Service/FatchApi";
 import {useFormik} from "formik"
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { setToken } from "../Service/Slice/AuthSlice";
 
 function Login() {
 
   const [login,{isLoading}] = useLoginMutation();
   const navigate = useNavigate();
-
+  const dispatch = useDispatch()
 //  useEffect(()=>{
 //   const token = localStorage.getItem("auth")
 //   if (token) {
@@ -36,7 +38,9 @@ onSubmit: async (values, { setSubmitting, setErrors }) => {
     const { status, message, data } = user;
     if (status === "OK") {
       toast.success(message)
-      localStorage.setItem("auth", data.token)
+      
+      // localStorage.setItem("auth", data.token)
+      dispatch(setToken(data.token))
       navigate("/user",{replace:true})
     } else {
       // Invalid login details

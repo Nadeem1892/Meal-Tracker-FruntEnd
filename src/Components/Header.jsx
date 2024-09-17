@@ -8,7 +8,14 @@ import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 import mealTreackerLogo from "../Assets/meal-treaker-logo.png";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { clearToken } from "../Service/Slice/AuthSlice";
 function Header() {
+
+  const dispatch = useDispatch()
+
+  // const navigate = useNavigate();
   const [isUserMenuOpen, setUserMenuOpen] = useState(false);
   const [isNavbarOpen, setNavbarOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null); // Keeps track of the active dropdown
@@ -86,7 +93,12 @@ function Header() {
   // const decodedToken = jwtDecode(token);
 
   const logOut = () => {
-    localStorage.clear("auth");
+    // Clear the authentication token
+    dispatch(clearToken())
+    // localStorage.removeItem('auth');
+    
+    toast.success("Log Out Successfully")
+
   };
 
   return (
