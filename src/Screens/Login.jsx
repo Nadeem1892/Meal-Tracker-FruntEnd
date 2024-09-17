@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link,  useNavigate } from "react-router-dom";
 import logo from "../Assets/meal-treaker-logo.png";
 import * as Yup from "yup"
@@ -11,12 +11,12 @@ function Login() {
   const [login,{isLoading}] = useLoginMutation();
   const navigate = useNavigate();
 
- useEffect(()=>{
-  const token = localStorage.getItem("auth")
-  if (token) {
-    navigate("/user",{replace:true})
-  }
- },[navigate])
+//  useEffect(()=>{
+//   const token = localStorage.getItem("auth")
+//   if (token) {
+//     navigate("/user")
+//   }
+//  },[navigate])
 
 
   const formik = useFormik({

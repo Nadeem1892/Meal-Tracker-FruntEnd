@@ -4,7 +4,7 @@ import { RiMenu3Fill } from "react-icons/ri";
 import { IoShieldCheckmark } from "react-icons/io5";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
-import { jwtDecode } from "jwt-decode";
+// import { jwtDecode } from "jwt-decode";
 
 import mealTreackerLogo from "../Assets/meal-treaker-logo.png";
 import { Link } from "react-router-dom";
@@ -82,8 +82,8 @@ function Header() {
     };
   }, [isNavbarOpen]);
 
-  const token = localStorage.getItem("auth");
-  const decodedToken = jwtDecode(token);
+  // const token = localStorage.getItem("auth");
+  // const decodedToken = jwtDecode(token);
 
   const logOut = () => {
     localStorage.clear("auth");
@@ -148,7 +148,7 @@ function Header() {
             >
               <div className="px-4 py-3">
                 <span className="flex items-center gap-2 text-sm text-gray-900 dark:text-white">
-                  {decodedToken.username}
+                  {/* {decodedToken.username} */}
                   <IoShieldCheckmark className="text-green-500 text-[15px]" />
                 </span>
               </div>
@@ -196,7 +196,7 @@ function Header() {
                       <div className="flex flex-col items-center w-full gap-2">
                         <FaRegCircleUser className="w-10 h-10 text-[#f6f6f8]" />
                         <h3 className="flex items-center gap-2 font-semibold text-white text-[20px]">
-                          {decodedToken.username}
+                          {/* {decodedToken.username} */}
                           <IoShieldCheckmark className="text-green-500 text-[15px]" />
                         </h3>
                       </div>

@@ -8,21 +8,23 @@ import Addmeal from "../Screens/Meals/Add/Addmeal";
 import Addplans from "../Screens/Plans/Add/Addplans";
 import AddChallenge from "../Screens/Challenges/Add/AddChallenge";
 import ListingChallanges from "../Screens/Challenges/List/ListingChallanges";
+import Auth from "../Components/Auth/Auth";
+// import WithoutLogin from "../Components/Auth/WithoutLogin";
 
 
 
 const router = createBrowserRouter([
       {
         path: "/",
-        element: <Login />,
+        element: <Auth><Login /></Auth>,
       },
       {
         path: "/register",
-        element: <Register/>,
+        element: <Auth><Register/></Auth>,
       },
       {
         path: "/user",
-        element: <Layout/>,
+        element: <Auth><Layout/></Auth>,
         children: [
          
           {
