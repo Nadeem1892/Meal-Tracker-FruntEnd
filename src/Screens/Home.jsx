@@ -4,8 +4,9 @@ import { MdOutlineFiberNew } from "react-icons/md";
 
 function Home() {
   return (
-    <div className="grid h-full grid-cols-1 gap-5 px-2 py-5 mt-12 mb-10 sm:grid-cols-1 md:grid-cols-2 lg:px-5">
-      {/* 1 */}
+    <div className="grid h-full grid-cols-1 gap-5 px-2 py-5 mb-10 sm:grid-cols-1 md:grid-cols-2 lg:px-5">
+
+      
       <div className=" h-72">
         {/* Heading */}
         <div className="flex items-center justify-between py-2">
