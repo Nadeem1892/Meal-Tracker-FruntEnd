@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import Login from "../Screens/Login";
+
 import Layout from "../Screens/Layout";
 // import Home from "../Screens/Home";
 import MealsListing from "../Screens/Meals/List/MealsListing";
@@ -9,6 +9,7 @@ import Addplans from "../Screens/Plans/Add/Addplans";
 import AddChallenge from "../Screens/Challenges/Add/AddChallenge";
 import ListingChallanges from "../Screens/Challenges/List/ListingChallanges";
 import Auth from "../Components/Auth/Auth";
+import LoginWrapper from "../Screens/Login/LoginWrapper";
 // import WithoutLogin from "../Components/Auth/WithoutLogin";
 
 
@@ -16,7 +17,7 @@ import Auth from "../Components/Auth/Auth";
 const router = createBrowserRouter([
       {
         path: "/",
-        element: <Auth><Login /></Auth>,
+        element: <Auth><LoginWrapper/></Auth>,
       },
       {
         path: "/register",

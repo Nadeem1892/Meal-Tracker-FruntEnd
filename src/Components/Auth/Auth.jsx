@@ -8,7 +8,6 @@ const Auth = ({children}) => {
    
     const {token} = useSelector((state) => state.auth);
    
-    console.log(token)
     
     useEffect(()=>{
       
